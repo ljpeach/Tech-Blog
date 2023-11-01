@@ -1,0 +1,25 @@
+<div>
+    <form action="">
+        <h2>
+            {{#if sign_in}}
+            Login
+            {{else}}
+            Sign Up
+            {{/if}}
+        </h2>
+        <div class="mb-3">
+            <label for="usernameInput" class="form-label">Username</label>
+            <input type="text" class="form-control" id="usernameInput">
+        </div>
+        <div class="mb-3">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordInput">
+        </div>
+        <button type="submit" class="btn btn-primary">{{#if sign_in}}Sign In{{else}}Sign Up!{{/if}}</button>
+    </form>
+    {{#if sign_in}}
+    <a href="/signup">Sign up instead</a>
+    {{else}}
+    <a href="/signin">sign in instead</a>
+    {{/if}}
+</div>

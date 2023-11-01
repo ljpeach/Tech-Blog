@@ -1,0 +1,17 @@
+<div>
+    <h2>{{#if update}}Edit Post{{else}}Create New Post{{/if}}</h2>
+    <form action="">
+        <div class="mb-3">
+            <label for="titleInput" class="form-label">Title</label>
+            <input type="text" class="form-control" id="titleInput" {{#if update}}value="{{title}}" {{/if}}>
+        </div>
+        <div class="mb-3">
+            <label for="contentInput" class="form-label">Content</label>
+            <input type="text" class="form-control" id="contentInput" {{#if update}}value="{{post_body}}" {{/if}}>
+        </div>
+        <button id="post">{{#if update}}Update{{else}}Create{{/if}}</button>
+    </form>
+    {{#if update}}
+    <button id="delete">Delete</button>
+    {{/if}}
+</div>
