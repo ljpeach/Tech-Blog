@@ -16,11 +16,13 @@
                 <ul>
                     <li>
                         <a href="/">Home</a>
+                    </li>
+                    <li>
                         <a href="/dashboard">Dashboard</a>
                     </li>
                     <li>
                         {{#if logged_in}}
-                        <a href="/logout">logout</a>
+                        <a href="#" id="logout">logout</a>
                         {{else}}
                         <a href="/login">login</a>
                         {{/if}}

@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
     try {
         res.render('homepage', {
             page: 'The Tech Blog',
+            logged_in: req.session.logged_in,
         });
     }
     catch (err) {
@@ -16,10 +17,11 @@ router.get('/', (req, res) => {
 });
 
 // dashboard
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', withAuth, (req, res) => {
     try {
-        res.render('', {
+        res.render('dashboard', {
             page: 'Your Dashboard',
+            logged_in: req.session.logged_in,
         });
     }
     catch (err) {
@@ -28,10 +30,12 @@ router.get('/dashboard', (req, res) => {
 });
 
 // edit post
-router.get('/post/:id/edit', (req, res) => {
+router.get('/post/:id/edit', withAuth, (req, res) => {
     try {
-        res.render('', {
+        res.render('postForm', {
             page: 'Your Dashboard',
+            update: true,
+            logged_in: req.session.logged_in,
         });
     }
     catch (err) {
@@ -40,10 +44,11 @@ router.get('/post/:id/edit', (req, res) => {
 });
 
 // create post
-router.get('/post/create', (req, res) => {
+router.get('/post/create', withAuth, (req, res) => {
     try {
-        res.render('', {
+        res.render('postForm', {
             page: 'Your Dashboard',
+            logged_in: req.session.logged_in,
         });
     }
     catch (err) {
@@ -54,8 +59,9 @@ router.get('/post/create', (req, res) => {
 // view post
 router.get('/post/:id', (req, res) => {
     try {
-        res.render('', {
+        res.render('postView', {
             page: 'The Tech Blog',
+            logged_in: req.session.logged_in,
         });
     }
     catch (err) {
@@ -66,8 +72,10 @@ router.get('/post/:id', (req, res) => {
 // login
 router.get('/login', (req, res) => {
     try {
-        res.render('', {
+        res.render('login', {
             page: 'The Tech Blog',
+            sign_in: true,
+            logged_in: req.session.logged_in,
         });
     }
     catch (err) {
@@ -78,8 +86,9 @@ router.get('/login', (req, res) => {
 // sign up
 router.get('/signup', (req, res) => {
     try {
-        res.render('', {
+        res.render('login', {
             page: 'The Tech Blog',
+            logged_in: req.session.logged_in,
         });
     }
     catch (err) {

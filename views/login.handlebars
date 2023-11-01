@@ -1,5 +1,5 @@
 <div>
-    <form action="">
+    <form action="" class="account-form">
         <h2>
             {{#if sign_in}}
             Login
@@ -20,6 +20,11 @@
     {{#if sign_in}}
     <a href="/signup">Sign up instead</a>
     {{else}}
-    <a href="/signin">sign in instead</a>
+    <a href="/login">sign in instead</a>
     {{/if}}
 </div>
+{{#if sign_in}}
+<script src="./js/login.js"></script>
+{{else}}
+<script src="./js/signup.js"></script>
+{{/if}}
