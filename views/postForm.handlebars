@@ -1,17 +1,23 @@
-<div>
+<div {{#if update}}data-id={{post_id}}{{/if}}>
     <h2>{{#if update}}Edit Post{{else}}Create New Post{{/if}}</h2>
-    <form action="">
+    <form action="" id="post-form" {{#if update}}data-id={{post_id}}{{/if}}>
         <div class=" mb-3">
             <label for="titleInput" class="form-label">Title</label>
-            <input type="text" class="form-control" id="titleInput" {{#if update}}value="{{title}}" {{/if}}>
+            <input type="text" class="form-control" id="titleInput" {{#if update}}value="{{post.title}}" {{/if}}>
         </div>
         <div class="mb-3">
             <label for="contentInput" class="form-label">Content</label>
-            <input type="text" class="form-control" id="contentInput" {{#if update}}value="{{post_body}}" {{/if}}>
+            <input type="text" class="form-control" id="contentInput" {{#if update}}value="{{post.post_body}}" {{/if}}>
         </div>
         <button id="post">{{#if update}}Update{{else}}Create{{/if}}</button>
     </form>
     {{#if update}}
     <button id="delete">Delete</button>
+    {{/if}}
+    {{#if update}}
+    <script src="/js/updatePost.js"></script>
+    <script src="/js/deletePost.js"></script>
+    {{else}}
+    <script src="/js/createPost.js"></script>
     {{/if}}
 </div>

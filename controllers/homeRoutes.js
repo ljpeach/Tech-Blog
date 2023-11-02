@@ -30,12 +30,20 @@ router.get('/dashboard', withAuth, (req, res) => {
 });
 
 // edit post
-router.get('/post/:id/edit', withAuth, (req, res) => {
+router.get('/post/:id/edit', withAuth, async (req, res) => {
     try {
+        const postData = await Posts.findByPk(req.params.id, {})
+        const post = postData.get({ plain: true });
+        if (post.user_id != req.session.user_id) {
+            res.redirect('/dashboard');
+            return;
+        }
         res.render('postForm', {
             page: 'Your Dashboard',
             update: true,
             logged_in: req.session.logged_in,
+            post,
+            post_id: req.params.id
         });
     }
     catch (err) {
