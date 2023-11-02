@@ -1,7 +1,9 @@
 <section>
     <div>
-        <h2>{{title}}</h2>
-        <p>Posted by {{user}} on {{date}}</p>
+        <a href="/post/view/{{id}}">
+            <h2>{{title}}</h2>
+        </a>
+        <p>Posted by {{user.name}} on {{format_date date}}</p>
     </div>
     <p>{{post_body}}</p>
 </section>

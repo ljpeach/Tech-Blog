@@ -3,11 +3,21 @@ const { Users, Posts, Comments } = require('../models');
 const withAuth = require('../utils/auth');
 
 // homepage
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
+        const postData = await Posts.findAll({
+            include: [{
+                model: Users,
+                foreignKey: 'user_id',
+                attributes: ['name']
+            }]
+        })
+        const posts = postData.map((post) => post.get({ plain: true }));
+        console.log(posts);
         res.render('homepage', {
             page: 'The Tech Blog',
             logged_in: req.session.logged_in,
+            posts
         });
     }
     catch (err) {
@@ -17,11 +27,58 @@ router.get('/', (req, res) => {
 });
 
 // dashboard
-router.get('/dashboard', withAuth, (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
     try {
+        const postData = await Posts.findAll({
+            where: {
+                user_id: req.session.user_id
+            }
+        })
+        const posts = postData.map((post) => post.get({ plain: true }));
+        console.log(posts);
         res.render('dashboard', {
             page: 'Your Dashboard',
             logged_in: req.session.logged_in,
+            posts
+        });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+    }
+});
+
+// create post
+router.get('/post/create', (req, res) => {
+    console.log('here');
+    try {
+        console.log(req.session.logged_in);
+        res.render('postForm', {
+            page: 'Your Dashboard',
+            logged_in: req.session.logged_in,
+        });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+    }
+});
+
+// view post
+router.get('/post/view/:id', async (req, res) => {
+    try {
+        const postData = await Posts.findByPk(req.params.id, {
+            include: [{
+                model: Users,
+                foreignKey: 'user_id',
+                attributes: ['name']
+            }]
+        })
+        const post = postData.get({ plain: true });
+        res.render('postView', {
+            page: 'The Tech Blog',
+            logged_in: req.session.logged_in,
+            ...post
         });
     }
     catch (err) {
@@ -30,7 +87,7 @@ router.get('/dashboard', withAuth, (req, res) => {
 });
 
 // edit post
-router.get('/post/:id/edit', withAuth, async (req, res) => {
+router.get('/post/edit/:id', withAuth, async (req, res) => {
     try {
         const postData = await Posts.findByPk(req.params.id, {})
         const post = postData.get({ plain: true });
@@ -51,34 +108,14 @@ router.get('/post/:id/edit', withAuth, async (req, res) => {
     }
 });
 
-// create post
-router.get('/post/create', withAuth, (req, res) => {
-    try {
-        res.render('postForm', {
-            page: 'Your Dashboard',
-            logged_in: req.session.logged_in,
-        });
-    }
-    catch (err) {
-        res.status(500).json(err);
-    }
-});
 
-// view post
-router.get('/post/:id', (req, res) => {
-    try {
-        res.render('postView', {
-            page: 'The Tech Blog',
-            logged_in: req.session.logged_in,
-        });
-    }
-    catch (err) {
-        res.status(500).json(err);
-    }
-});
 
 // login
 router.get('/login', (req, res) => {
+    if (req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
     try {
         res.render('login', {
             page: 'The Tech Blog',

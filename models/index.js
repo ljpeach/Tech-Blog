@@ -17,12 +17,13 @@ Posts.hasMany(Comments, {
     onDelete: 'CASCADE'
 });
 
+Posts.belongsTo(Users, {
+    foreignKey: 'user_id'
+})
+
 Comments.belongsTo(Users, {
     foreignKey: 'user_id',
 });
 
-Comments.belongsTo(Comments, {
-    foreignKey: 'post_id',
-});
 
 module.exports = { Users, Posts, Comments };
