@@ -19,7 +19,6 @@ const createComment = async (event) => {
             document.location.replace('/login');
         }
         else {
-            console.log(response);
             alert('Failed to create post.');
         }
     }

@@ -16,7 +16,6 @@ router.post('/', async (req, res) => {
 
         res.status(200).json(postData);
     } catch (err) {
-        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -28,7 +27,6 @@ router.put('/:id', async (req, res) => {
             res.status(440).json({ message: "Session expired" });
             return;
         }
-        console.log("id", req.params.id);
         const postData = await Posts.update({
             title: req.body.title,
             post_body: req.body.post_body,
@@ -39,7 +37,6 @@ router.put('/:id', async (req, res) => {
 
         res.status(200).json(postData);
     } catch (err) {
-        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -70,7 +67,6 @@ router.delete('/:id', async (req, res) => {
 
 // create comment
 router.post('/comment/:id', async (req, res) => {
-    console.log('here');
     try {
         if (!req.session.user_id) {
             res.status(440).json({ message: "Session expired" });
@@ -84,7 +80,6 @@ router.post('/comment/:id', async (req, res) => {
 
         res.status(200).json(commentData);
     } catch (err) {
-        console.log(err);
         res.status(500).json(err);
     }
 });
