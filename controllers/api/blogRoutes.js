@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Posts } = require('../../models');
+const { Posts, Comments } = require('../../models');
 
 // create post
 router.post('/', async (req, res) => {
@@ -69,6 +69,24 @@ router.delete('/:id', async (req, res) => {
 });
 
 // create comment
-router.post('/:id/comment', (req, res) => { });
+router.post('/comment/:id', async (req, res) => {
+    console.log('here');
+    try {
+        if (!req.session.user_id) {
+            res.status(440).json({ message: "Session expired" });
+            return;
+        }
+        const commentData = await Comments.create({
+            comment_body: req.body.comment_body,
+            user_id: req.session.user_id,
+            post_id: req.params.id
+        });
+
+        res.status(200).json(commentData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;

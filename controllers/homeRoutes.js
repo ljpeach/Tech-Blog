@@ -74,11 +74,24 @@ router.get('/post/view/:id', async (req, res) => {
                 attributes: ['name']
             }]
         })
+        const commentData = await Comments.findAll({
+            where: {
+                post_id: req.params.id
+            },
+            include: [{
+                model: Users,
+                foreignKey: 'user_id',
+                attributes: ['name']
+            }]
+        })
+
         const post = postData.get({ plain: true });
+        const comments = commentData.map((comment) => comment.get({ plain: true }));
         res.render('postView', {
             page: 'The Tech Blog',
             logged_in: req.session.logged_in,
-            ...post
+            ...post,
+            comments
         });
     }
     catch (err) {
@@ -107,8 +120,6 @@ router.get('/post/edit/:id', withAuth, async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-
 
 // login
 router.get('/login', (req, res) => {
