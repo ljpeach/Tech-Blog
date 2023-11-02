@@ -1,18 +1,22 @@
-<div {{#if update}}data-id={{post_id}}{{/if}}>
-    <h2>{{#if update}}Edit Post{{else}}Create New Post{{/if}}</h2>
-    <form action="" id="post-form" {{#if update}}data-id={{post_id}}{{/if}}>
-        <div class=" mb-3">
+<div class="card d-flex justify-content-center m-3 px-0 flex-column bg-primary-subtle border-5 border-secondary p-0"
+    {{#if update}}data-id={{post_id}}{{/if}}>
+    <form action="" class="col-12 bg-primary-subtle d-flex flex-column" id="post-form" {{#if
+        update}}data-id={{post_id}}{{/if}}>
+        <h2 class="d-flex justify-content-between bg-secondary align-items-center py-2 px-3 text-light">{{#if
+            update}}Edit Post{{else}}Create New Post{{/if}}</h2>
+        <div class="px-3 mb-3">
             <label for="titleInput" class="form-label">Title</label>
             <input type="text" class="form-control" id="titleInput" {{#if update}}value="{{post.title}}" {{/if}}>
         </div>
-        <div class="mb-3">
+        <div class="px-3 mb-3">
             <label for="contentInput" class="form-label">Content</label>
             <input type="text" class="form-control" id="contentInput" {{#if update}}value="{{post.post_body}}" {{/if}}>
         </div>
-        <button id="post">{{#if update}}Update{{else}}Create{{/if}}</button>
+        <button class="btn rounded-3 bg-success text-light mb-2 mx-3" id="post">{{#if
+            update}}Update{{else}}Create{{/if}}</button>
     </form>
     {{#if update}}
-    <button id="delete">Delete</button>
+    <button class="btn rounded-3 bg-success text-light mb-2 mx-3" id="delete">Delete</button>
     {{/if}}
     {{#if update}}
     <script src="/js/updatePost.js"></script>

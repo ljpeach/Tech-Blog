@@ -31,11 +31,11 @@ const toggleDisplay = () => {
     if (commentButton.getAttribute('data-visible') == 'true') {
         commentButton.setAttribute('data-visible', 'false');
         commentButton.className = 'd-none';
-        commentForm.className = '';
+        commentForm.className = 'card col-12 border-secondary border-5 mb-3 d-flex flex-column justify-content-between bg-primary-subtle';
     }
     else {
         commentButton.setAttribute('data-visible', 'true');
-        commentButton.className = '';
+        commentButton.className = 'btn rounded-3 bg-success text-light mb-2 mx-3';
         commentForm.className = 'd-none';
     }
 }

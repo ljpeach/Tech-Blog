@@ -1,9 +1,9 @@
-<section>
-    <div>
-        <a href="/post/view/{{id}}">
+<section class="card col-12 border-secondary border-5 mb-3 bg-primary-subtle">
+    <div class="d-flex justify-content-between bg-secondary align-items-center py-2 px-3">
+        <a class="text-light link-underline link-underline-opacity-0 align-middle" href="/post/view/{{id}}">
             <h2>{{title}}</h2>
         </a>
-        <p>Posted by {{user.name}} on {{format_date date}}</p>
+        <p class="text-light mb-0">Posted by {{user.name}} on {{format_date date}}</p>
     </div>
-    <p>{{post_body}}</p>
+    <p class="m-3 rounded">{{post_body}}</p>
 </section>
